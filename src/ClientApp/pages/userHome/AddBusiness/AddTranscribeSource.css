@@ -1,0 +1,204 @@
+.social-platform-buttons {
+  display: flex;
+  gap: 10px;
+  padding-right: 49px !important;
+}
+
+.social-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #2e88bf;
+  color: #2e88bf;
+  background: white;
+  transition: all 0.2s ease;
+}
+
+.social-btn:hover {
+  background: #2e88bf;
+}
+
+.social-btn.active {
+  background: #2e88bf;
+  color: white;
+  border-color: white;
+}
+
+.social-btn i {
+  font-size: 18px;
+} 
+
+.add-busines-button {
+    background-color: #FF9800;
+    font-weight:bold;
+    font-size: medium;
+    color: #f0f6f7e3;
+    margin-left: 25px;
+    margin-top: -21px !important;
+}
+  
+.add-busines-button-bottom {
+    background-color: white;
+    font-weight:bold;
+    font-size: small;
+    color: #2e88bf;
+    border-color: #2e88bf;
+    float: right;
+}
+  
+.remove-busines-panel {
+    width: auto;
+}
+  
+.business-divider {
+    background-color: #818080;
+}
+  
+  .add-busness-submit-button {
+    background-color: #2e88bf;
+    font-weight:bold;
+    font-size: medium;
+    color: #f0f6f7e3;
+    border-color: #f0f6f7e3;
+    min-width: 85px;
+  }
+  
+  .add-business-title {
+    color: #000000e3;;
+    font-weight:bold;
+    font-size: xx-large;
+    float: left;
+  }
+  
+  .remove-busness-submit-button {
+    background-color: #e3edf6;
+    font-weight: bold;
+    font-size: medium;
+    color: #2e88bf;
+    border-color: #2e88bf;
+    float: right;
+    margin-top: 8px !important;
+    border-radius: 15px;
+  }
+  
+  .add-social-submit-button {
+    background-color: white;
+    font-weight:bolder;
+    font-size: medium;
+    color: #2e88bf;
+    border-radius: 15px;
+    float: right;
+    border-color: #edf0f1;
+    margin-top: 10px !important;
+   }
+
+   .remove-social-submit-button {
+    background-color: white;
+    font-weight: bold;
+    font-size: medium;
+    color: #2e88bf;
+    border-color: #edf0f1;
+    border-radius: 15px;
+    margin-top: 10px !important;
+   }
+  
+   .remove-busness-submit-button {
+    background-color: #e3edf6;
+    font-weight: bold;
+    font-size: medium;
+    color: #2e88bf;
+    border-color: #2e88bf;
+    float: right;
+    margin-top: 10px !important;
+    border-radius: 15px;
+  }
+  
+  .social-section {
+    padding-bottom: 5px;
+    padding-top: 5px;
+    overflow: hidden !important;
+  }
+
+  .add-busines-button-bottom {
+    background-color: white;
+    font-weight:bold;
+    font-size: small;
+    color: #2e88bf;
+    border-color: #2e88bf;
+    float: right;
+}
+  
+  .add-busness-cancel-button  {
+    background-color: #e3edf6;
+    font-weight: bold;
+    font-size: medium;
+    color: #2e88bf;
+    border-color: #2e88bf;
+    margin-right: 10px;
+  }
+  
+  .add-new-post {
+    margin-top: -43px;
+  }
+  
+  .checkbox-container {
+    font-weight: bold;
+    font-size:large;
+    color: #f0f6f7e3;
+  }
+  
+  .add-business-listed-on {
+    font-weight: bold;
+    font-size:large;
+    color: #060707e3;
+    margin-left: -21px;
+    margin-right: 7px;
+  }
+  
+  .add-business-checkboxes {
+    font-weight: bold;
+    font-size:large;
+    margin-top: -12px;
+  }
+
+  .add-business-social-platforms {
+    font-weight: bold;
+    font-size:large;
+    color: #f0f6f7e3;
+    margin-top: -12px;
+  }
+  
+  .business-tabs .MuiTab-root {
+    font-weight: bold;
+    color: #251717; /* Default color */
+  }
+  
+  .business-tabs .MuiTab-root.active-tab {
+    background-color: #2e88bf;
+    color: #f0f6f7e3; /* Active color */
+    font-weight: bold;
+  }
+  
+  .form-check-inline {
+    color: #251717;
+  }
+
+  .social-media-container {
+    overflow: hidden !important;
+    max-width: 100% !important;
+    padding: 1rem !important;
+  }
+.main-content-container {
+    background-color: #f9fafa;
+    padding: 1rem;
+  }
+  
+  .MuiTab-root.Mui-selected {
+    font-weight: bold;
+    color: #2e88bf !important;
+  }
+  
