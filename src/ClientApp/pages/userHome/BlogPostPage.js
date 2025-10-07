@@ -86,7 +86,6 @@ return (
 
 
 
-// Small Card Component
 const SmallCard = ({ data }) => {
   return (
     <div className="col-lg-4">
@@ -120,7 +119,6 @@ const SmallCard = ({ data }) => {
   );
 };
 
-// Large Card Component
 const LargeCard = ({ data }) => {
   return (
     <div className="col-lg-3 col-md-6 col-sm-12 mb-4">
@@ -243,9 +241,7 @@ const asidePosts = [
 
 
 
-// Main Component
 const PostBlogPage = () => {
-  // Data for Small Cards
   const smallCardData = [
     {
       title: 'Had denoting properly jointure which well books beyond',
@@ -273,7 +269,6 @@ const PostBlogPage = () => {
     },
   ];
 
-  // Data for Large Cards
   const largeCardData = [
     {
       image: BlogImg7,
@@ -311,7 +306,6 @@ const PostBlogPage = () => {
 
   return (
     <div className="main-content-container container-fluid px-4">
-      {/* Page Header */}
       <div className="page-header row no-gutters py-4">
         <div className="col-12 col-sm-4 text-center text-sm-left mb-0">
           <span className="text-uppercase page-subtitle">Components</span>

@@ -256,7 +256,6 @@ const ControlPanel = ({user}) => {
     setActionsErrorMsg('');
     const allSelected = actionsInGroup.every((act) => selectedActions.includes(act.id));
     if (!allSelected) {
-      // user wants to add
       const distinctGroups = getDistinctSelectedGroups();
       if (!distinctGroups.has(groupId) && distinctGroups.size >= 3) {
         setActionsErrorMsg('You can only select up to 3 groups of actions per agent.');
@@ -269,7 +268,6 @@ const ControlPanel = ({user}) => {
         return Array.from(newSet);
       });
     } else {
-      // remove
       const groupIds = actionsInGroup.map((act) => act.id);
       setSelectedActions((prev) => prev.filter((id) => !groupIds.includes(id)));
     }
@@ -494,7 +492,6 @@ const ControlPanel = ({user}) => {
             </Alert>
           )}
 
-          {/* AGENT SELECT */}
           <Card
             sx={{
               backgroundColor: '#161d27',
@@ -547,7 +544,6 @@ const ControlPanel = ({user}) => {
                   </Box>
                 )}
 
-                {/* Delete Agent Icon */}
                 <IconButton
                   onClick={handleDeleteAgentClick}
                   disabled={!selectedAgent}
@@ -559,7 +555,6 @@ const ControlPanel = ({user}) => {
             </CardContent>
           </Card>
 
-          {/* TABS */}
           <Tabs
             value={tabIndex}
             onChange={handleTabChange}
@@ -577,7 +572,6 @@ const ControlPanel = ({user}) => {
             <Tab label="Change Control" />
           </Tabs>
 
-          {/* TAB 0: ACTIVE CONTROL */}
           {tabIndex === 0 && (
             <Box sx={{ mt: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
@@ -590,7 +584,6 @@ const ControlPanel = ({user}) => {
                     disabled={!selectedGroups.length}
                     sx={{ color: '#ff4444', border: '1px solid #444' }}
                   >
-                    {/* Delete Action Groups Icon */}
                     <DeleteForeverIcon />
                   </IconButton>
                 )}
@@ -670,7 +663,6 @@ const ControlPanel = ({user}) => {
             </Box>
           )}
 
-          {/* TAB 1: CHANGE CONTROL */}
           {tabIndex === 1 && (
             <Box sx={{ mt: 2 }}>
               <Box
@@ -688,7 +680,6 @@ const ControlPanel = ({user}) => {
                   Control Panel:
                 </Typography>
 
-                {/* TIME */}
                 <Box
                   sx={{
                     display: 'flex',
@@ -710,7 +701,6 @@ const ControlPanel = ({user}) => {
                   </Typography>
                 </Box>
 
-                {/* ACTIONS */}
                 <Box
                   sx={{
                     display: 'flex',
@@ -732,7 +722,6 @@ const ControlPanel = ({user}) => {
                   </Typography>
                 </Box>
 
-                {/* OCCURRENCE */}
                 <Box sx={{ display: 'flex', alignItems: 'center', p: 1 }}>
                   <RepeatIcon sx={{ mr: 1 }} />
                   <Typography sx={{ color: '#ccc', mr: 1 }}>Occurrence:</Typography>
@@ -777,7 +766,6 @@ const ControlPanel = ({user}) => {
                   )}
                 </Box>
 
-                {/* COMMUNICATION CHECKBOX */}
                 <Box sx={{ display: 'flex', alignItems: 'center', p: 1 }}>
                   <Checkbox
                     checked={enableCommunication}
@@ -822,7 +810,6 @@ const ControlPanel = ({user}) => {
                   </Box>
                 )}
 
-                {/* CANCEL & SAVE */}
                 <Box sx={{ mt: 3, display: 'flex', gap: 2, justifyContent: 'flex-end' }}>
                   <Button
                     variant="outlined"
@@ -847,7 +834,6 @@ const ControlPanel = ({user}) => {
         </CardContent>
       </Card>
 
-      {/* TIME PICKER DIALOG */}
       {editingTime && (
         <Dialog open={editingTime} onClose={closeTimePicker}>
           <DialogTitle sx={{ backgroundColor: '#161d27', color: '#ccc' }}>
@@ -907,7 +893,6 @@ const ControlPanel = ({user}) => {
         </Dialog>
       )}
 
-      {/* ACTIONS DIALOG */}
       <Dialog
         open={actionDialogOpen}
         onClose={handleActionClose}
@@ -934,7 +919,6 @@ const ControlPanel = ({user}) => {
             </Alert>
           )}
 
-          {/* Filter text field */}
           <Box sx={{ display: 'flex', gap: 1, mb: 2, alignItems: 'center' }}>
             <TextField
               variant="outlined"
@@ -951,7 +935,6 @@ const ControlPanel = ({user}) => {
             />
           </Box>
 
-          {/* Table-like grouping */}
           {Object.entries(groupedActions).map(([groupId, actionsInGroup]) => {
             const allSelected = actionsInGroup.every((act) => selectedActions.includes(act.id));
             return (
@@ -1013,7 +996,6 @@ const ControlPanel = ({user}) => {
         </DialogActions>
       </Dialog>
 
-      {/* DELETE GROUPS DIALOG (Active Control) */}
       <Dialog
         open={deleteDialogOpen}
         onClose={() => setDeleteDialogOpen(false)}
@@ -1050,7 +1032,6 @@ const ControlPanel = ({user}) => {
         </DialogActions>
       </Dialog>
 
-      {/* DELETE AGENT DIALOG */}
       <Dialog
         open={deleteAgentDialogOpen}
         onClose={() => setDeleteAgentDialogOpen(false)}

@@ -46,7 +46,6 @@ import {
   Divider
 } from '@mui/material';
 
-// Icons
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -65,7 +64,6 @@ import ReplayIcon from '@mui/icons-material/Replay';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import SendIcon from '@mui/icons-material/Send';
 import ChatIcon from '@mui/icons-material/Chat';
-// We'll use this for TikTok as a placeholder:
 import AudiotrackIcon from '@mui/icons-material/Audiotrack';
 
 import {
@@ -77,11 +75,8 @@ import {
   getAgentKnowledgeSource,
   updateAgentConfigActive,
   getSelectedAgent,
-  // if you have a real remove product:
-  // deleteUserProduct
 } from '../../../../core/api/auth';
 
-/** For illustration only: fake remove product function */
 async function deleteUserProduct(productId) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -90,7 +85,6 @@ async function deleteUserProduct(productId) {
   });
 }
 
-/** Example function: Summaries for agent. Replace with your real logic if needed. */
 async function fetchAgentSummary(agentId) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -102,7 +96,6 @@ async function fetchAgentSummary(agentId) {
   });
 }
 
-/** Summarize an item’s transcript. Replace with your real logic. */
 async function summarizeKnowledgeRow(rowId, agentId, summaryType) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -114,7 +107,6 @@ async function summarizeKnowledgeRow(rowId, agentId, summaryType) {
   });
 }
 
-/** Retry if "Failed." Replace with your real logic. */
 async function retryKnowledgeItem(rowId) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -123,7 +115,6 @@ async function retryKnowledgeItem(rowId) {
   });
 }
 
-/** Delete knowledge items. Replace with your real logic. */
 async function deleteKnowledgeItems(ids) {
   return new Promise((resolve) => {
     setTimeout(() => {
@@ -132,7 +123,6 @@ async function deleteKnowledgeItems(ids) {
   });
 }
 
-/** For currency formatting */
 function formatCurrency(value) {
   if (!value) return '';
   const numeric = parseFloat(value.toString().replace(/[^\d.]/g, ''));
@@ -143,7 +133,6 @@ function formatCurrency(value) {
   }).format(numeric);
 }
 
-/** Limit text to a certain number of words */
 function limitWords(str, maxWords) {
   if (!str) return '';
   const words = str.trim().split(/\s+/);
@@ -151,7 +140,6 @@ function limitWords(str, maxWords) {
   return words.slice(0, maxWords).join(' ') + '...';
 }
 
-/** Return a matching social icon for the platform */
 function getPlatformIcon(platformString = '') {
   const p = platformString.toLowerCase();
   if (p.includes('twitter')) return <TwitterIcon sx={{ mr: 1, color: '#ccc' }} />;
@@ -204,14 +192,12 @@ const truncatedText = (t, m = 20) =>
     ? <span>{t}</span>
     : <span title={t}>{t.slice(0, m) + '...'}</span>;
 
-/** Return a channel display name */
 function getChannelDisplay(row) {
   if (row.youtube_channel_title) return row.youtube_channel_title;
   if (row.youtube_channel_id) return row.youtube_channel_id;
   return '(No channel)';
 }
 
-/** Row menu for the knowledge table. */
 const RowActionsMenu = ({ rowTitle }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   return (
@@ -254,7 +240,6 @@ const RowActionsMenu = ({ rowTitle }) => {
   );
 };
 
-/** Summarize knowledge function */
 async function doSummarizeKnowledge(
   rowId,
   agentId,
@@ -290,12 +275,10 @@ async function doSummarizeKnowledge(
 
 const Agents = ({user}) => {
   const userId = user?.id || localStorage.getItem('userId');
-  // Common states
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
   const [loading, setLoading] = useState(true);
 
-  // Agent Config
   const [agentConfigs, setAgentConfigs] = useState([]);
   const [rowUpdating, setRowUpdating] = useState({});
   const [selectedIds, setSelectedIds] = useState([]);
@@ -303,7 +286,6 @@ const Agents = ({user}) => {
   const [pageAgentConfig, setPageAgentConfig] = useState(0);
   const rowsPerPageAgentConfig = 5;
 
-  // "Generated Post" / Activity Panel
   const [discussions, setDiscussions] = useState([]);
   const [rowBlink, setRowBlink] = useState({});
   const [page, setPage] = useState(1);
@@ -318,13 +300,10 @@ const Agents = ({user}) => {
   const [editField, setEditField] = useState('postContent');
   const [selectedAgentChatGptId, setSelectedAgentChatGptId] = useState('');
 
-  // Which agent is selected
   const [selectedAgentActivity, setSelectedAgentActivity] = useState('');
 
-  // TABS
   const [tabIndex, setTabIndex] = useState(0);
 
-  // Shops
   const [shops, setShops] = useState([]);
   const [allProducts, setAllProducts] = useState([]);
   const [expandedShop, setExpandedShop] = useState(null);
@@ -336,7 +315,6 @@ const Agents = ({user}) => {
   const [productToRemove, setProductToRemove] = useState(null);
 
 
-  // Knowledge Source
   const [knowledgeData, setKnowledgeData] = useState([]);
   const [knowledgeLoading, setKnowledgeLoading] = useState(false);
   const [selectedRowsK, setSelectedRowsK] = useState([]);
@@ -348,18 +326,15 @@ const Agents = ({user}) => {
   const [loadingSummary, setLoadingSummary] = useState(false);
   const [agentSummary, setAgentSummary] = useState('');
 
-  // Summaries
   const [isSummaryDialogOpen, setIsSummaryDialogOpen] = useState(false);
   const [dialogSummaryRow, setDialogSummaryRow] = useState(null);
   const [summaryType, setSummaryType] = useState('long');
   const [selectedSummarizeAgent, setSelectedSummarizeAgent] = useState('');
 
-  // CHUNK VIEW
   const [chunkViewOpen, setChunkViewOpen] = useState(false);
   const [chunkViewData, setChunkViewData] = useState([]);
   const [chunkViewAgentName, setChunkViewAgentName] = useState('');
 
-  // We'll keep track of the "activeSocialPlatform." By default, let's set to "twitter" after user picks an agent.
   const [activeSocialPlatform, setActiveSocialPlatform] = useState('twitter');
 
   const getSelectedAgentDetails = async (id) => {
@@ -372,7 +347,6 @@ const Agents = ({user}) => {
     }
   };
 
-  // Approve / Reject chunk
   async function handleApproveChunk() {
     if (discussions[0]?.id) {
       await approveOrRejectPost(discussions[0].id, 'approve').catch(console.error);
@@ -386,7 +360,6 @@ const Agents = ({user}) => {
     }
   }
 
-  // Edit chunk
   const [chunkEditDialogOpen, setChunkEditDialogOpen] = useState(false);
   const [chunkEditValue, setChunkEditValue] = useState('');
   const handleEditChunk = () => {
@@ -423,7 +396,6 @@ const Agents = ({user}) => {
     setSuccessMsg('All chunk summaries copied to clipboard!');
   };
 
-  // Load agent configs
   useEffect(() => {
     fetchAgentConfigs();
   }, []);
@@ -442,11 +414,9 @@ const Agents = ({user}) => {
     }
   }
 
-  // Load posts
   useEffect(() => {
     if (selectedAgentActivity) {
       loadAgentPosts(selectedAgentActivity);
-      // default the platform to "twitter"
       setActiveSocialPlatform('twitter');
     }
   }, [selectedAgentActivity]);
@@ -471,7 +441,6 @@ const Agents = ({user}) => {
     }
   }
 
-  // Load shops if tab=0
   useEffect(() => {
     if (tabIndex === 0 && selectedAgentActivity) {
       loadShops(selectedAgentActivity);
@@ -491,7 +460,6 @@ const Agents = ({user}) => {
     }
   }
 
-  // Load knowledge if tab=1
   useEffect(() => {
     if (tabIndex === 1 && selectedAgentActivity) {
       loadKnowledgeData(selectedAgentActivity);
@@ -526,7 +494,6 @@ const Agents = ({user}) => {
     }
   }
 
-  // Filter & pagination for Post Config
   const filteredAgentConfigs = useMemo(() => {
     if (!selectedAgentActivity) {
       return [];
@@ -567,7 +534,6 @@ const Agents = ({user}) => {
     }
   };
 
-  // Multiple selection for agent config
   const handleSelectAllAgents = (event) => {
     if (event.target.checked) {
       const allIds = displayedAgentConfigs.map((r) => r.id);
@@ -582,7 +548,6 @@ const Agents = ({user}) => {
     );
   };
 
-  // Deletion for agent config
   const handleDeleteSelectedAgents = () => {
     if (!selectedIds.length) {
       setErrorMsg('No rows selected to delete');
@@ -615,7 +580,6 @@ const Agents = ({user}) => {
     }
   };
 
-  // Handler for agent selection
   const handleAgentActivityChange = async (e) => {
     setSelectedAgentActivity(e.target.value);
     const id = e.target.value;
@@ -624,20 +588,17 @@ const Agents = ({user}) => {
     setSelectedAgentChatGptId(details?.chat_gpt_id);
   };
 
-  // For the "Generated Post" filter
   const distinctSources = useMemo(() => {
     const setOfSources = new Set(discussions.map((d) => d.source_title || 'Unknown'));
     return Array.from(setOfSources);
   }, [discussions]);
 
-  // Filter by activeSocialPlatform first
   const filteredByPlatform = useMemo(() => {
     return discussions.filter(
       (d) => d.platform && d.platform.toLowerCase().includes(activeSocialPlatform.toLowerCase())
     );
   }, [discussions, activeSocialPlatform]);
 
-  // Then apply sourceFilter
   const filteredDiscussions = useMemo(() => {
     if (sourceFilter === 'All') {
       return filteredByPlatform;
@@ -654,7 +615,6 @@ const Agents = ({user}) => {
     setPage(value);
   };
 
-  // Approve/Reject for each post
   const handleApprove = async (discIndex) => {
     const post = filteredDiscussions[discIndex];
     if (post && post.id) {
@@ -693,7 +653,6 @@ const Agents = ({user}) => {
     }, 1000);
   }
 
-  // Edit single post
   const handleEdit = (discussion, discIndex, fieldName = 'postContent') => {
     const actualDiscussion = filteredDiscussions[discIndex];
     const originalIndex = discussions.findIndex((d) => d.id === actualDiscussion.id);
@@ -725,7 +684,6 @@ const Agents = ({user}) => {
     }, 1000);
   }
 
-  // Copy to clipboard
   const handleCopy = async (discussionId, partKey, textToCopy) => {
     try {
       await navigator.clipboard.writeText(textToCopy);
@@ -738,7 +696,6 @@ const Agents = ({user}) => {
     }
   };
 
-  // Shops pagination
   const displayedShops = shops.slice(pageShop * rowsPerPageShop, pageShop * rowsPerPageShop + rowsPerPageShop);
   const handleChangePageShop = (event, newPage) => {
     setPageShop(newPage);
@@ -754,7 +711,6 @@ const Agents = ({user}) => {
     setExpandedProducts(filtered);
   };
 
-  // Remove product
   const confirmRemoveProduct = (product) => {
     setProductToRemove(product);
     setOpenRemoveProductDialog(true);
@@ -778,7 +734,6 @@ const Agents = ({user}) => {
     setProductToRemove(null);
   };
 
-  // Knowledge Source
   const PAGE_SIZE = 10;
   const handleDeleteKnowledgeRows = () => {
     if (!selectedRowsK.length) {
@@ -944,10 +899,8 @@ const Agents = ({user}) => {
             </Typography>
           </Grid>
         </Grid>
-      {/* ================== ACTIVITY PANEL ================== */}
       <Card sx={cardSx}>
         <CardContent>
-          {/* Agent selection */}
           <Card
             sx={{
               backgroundColor: '#161d27',
@@ -998,7 +951,6 @@ const Agents = ({user}) => {
           </Card>
 
           <Grid container spacing={2}>
-            {/* Right side: "Summarized Sources" => chunk summary + social media buttons => load posts */}
             <Grid item xs={15} md={15}>
               <Box
                 sx={{
@@ -1008,7 +960,6 @@ const Agents = ({user}) => {
                   p: 2,
                 }}
               >
-                {/* Title + Source Filter Select */}
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                   <Typography variant="h6" sx={{ borderBottom: 'none', pb: 0, color: '#ccc', mb: 2 }}>
                     Generated Knowledge Sources:
@@ -1044,7 +995,6 @@ const Agents = ({user}) => {
                   </FormControl>
                 </Box>
 
-                {/* CHUNK SUMMARY section if we have at least one discussion */}
                 {discussions.length > 0 && (
                   <Card
                     sx={{
@@ -1054,7 +1004,6 @@ const Agents = ({user}) => {
                     }}
                   >
                     <CardContent>
-                      {/* Summarized row (top line) */}
                       <Box
                         sx={{
                           display: 'flex',
@@ -1084,7 +1033,6 @@ const Agents = ({user}) => {
 
                       <Divider sx={{ mb: 2 }} />
 
-                      {/* Show summary text truncated, plus a "View" icon, and Social Media Buttons to the right */}
                       <Box sx={{ position: 'relative', paddingRight: '40px', mb: 2 }}>
                         <Typography variant="body2" sx={{ color: '#ccc', mb: 1 }}>
                           <strong style={{ color: '#FF9800', mb: 1 }}>Summary:</strong>{' '}
@@ -1102,7 +1050,6 @@ const Agents = ({user}) => {
                           </Tooltip>
                         </Typography>
 
-                        {/* Social Media Buttons => setActiveSocialPlatform */}
                         <Box sx={{ display: 'flex', gap: 1, justifyContent: 'flex-end' }}>
                           <Tooltip title="Show Twitter posts">
                             <IconButton
@@ -1154,7 +1101,6 @@ const Agents = ({user}) => {
                   </Card>
                 )}
 
-                {/* The actual "Generated Posts" listing, filtered by activeSocialPlatform + sourceFilter */}
                 {displayedDiscussions.map((discussion, idx) => {
                   const discIndex = idx; 
                   const formattedMainDate =
@@ -1175,7 +1121,6 @@ const Agents = ({user}) => {
                       }}
                     >
                       <CardContent>
-                        {/* TOP ROW: Platform, date info */}
                         <Box
                           sx={{
                             display: 'flex',
@@ -1199,7 +1144,6 @@ const Agents = ({user}) => {
 
                         <Divider sx={{ mb: 2 }} />
 
-                        {/* Generated post content */}
                         <Box sx={{ position: 'relative', paddingRight: '40px' }}>
                           <IconButton
                             onClick={() =>
@@ -1248,7 +1192,6 @@ const Agents = ({user}) => {
                   );
                 })}
 
-                {/* Pagination for these posts */}
                 <Box sx={{ display: 'flex', justifyContent: 'center', p: 2 }}>
                   <Pagination
                     count={totalPages}
@@ -1269,7 +1212,6 @@ const Agents = ({user}) => {
         </CardContent>
       </Card>
 
-      {/* ========== TASKS TABS ========== */}
       <Box sx={cardSx}>
         <CardContent>
           <Typography variant="h6" sx={{ color: '#ccc', mb: 2 }}>
@@ -1293,7 +1235,6 @@ const Agents = ({user}) => {
             <Tab label="Post Configuration" />
           </Tabs>
 
-          {/* === TAB 0: Shops === */}
           {tabIndex === 0 && (
             <Box sx={{ mt: 2 }}>
               {loadingShop ? (
@@ -1432,7 +1373,6 @@ const Agents = ({user}) => {
             </Box>
           )}
 
-          {/* === TAB 1: Knowledge Source === */}
           {tabIndex === 1 && (
             <Box sx={{ mt: 2 }}>
               {loadingSummary ? (
@@ -1681,7 +1621,6 @@ const Agents = ({user}) => {
             </Box>
           )}
 
-          {/* === TAB 2: Post Configuration === */}
           {tabIndex === 2 && (
             <Box sx={{ mt: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
@@ -1855,7 +1794,6 @@ const Agents = ({user}) => {
         </CardContent>
       </Box>
 
-      {/* ====== Edit Post dialog ====== */}
       <Dialog
         open={openEditDialog}
         onClose={() => setOpenEditDialog(false)}
@@ -1894,7 +1832,6 @@ const Agents = ({user}) => {
         </DialogActions>
       </Dialog>
 
-      {/* ====== Edit chunk summary dialog ====== */}
       <Dialog
         open={chunkEditDialogOpen}
         onClose={() => setChunkEditDialogOpen(false)}
@@ -1937,7 +1874,6 @@ const Agents = ({user}) => {
         </DialogActions>
       </Dialog>
 
-      {/* ====== CHUNK VIEW DIALOG (Show unique chunk summaries for that source) ====== */}
       <Dialog
         open={chunkViewOpen}
         onClose={() => setChunkViewOpen(false)}
@@ -1976,7 +1912,6 @@ const Agents = ({user}) => {
             p: 2
           }}
         >
-          {/* Each chunk summary displayed in a post-style frame */}
           {chunkViewData.map((chunk, idx) => (
             <Box
               key={idx}
@@ -2003,7 +1938,6 @@ const Agents = ({user}) => {
         </DialogActions>
       </Dialog>
 
-      {/* ====== Confirm delete for Post Config ====== */}
       <Dialog
         open={deleteDialogOpen}
         onClose={handleDialogCancel}
@@ -2025,7 +1959,6 @@ const Agents = ({user}) => {
         </DialogActions>
       </Dialog>
 
-      {/* ====== Remove Product Confirmation (Shops) ====== */}
       <Dialog
         open={openRemoveProductDialog}
         onClose={handleCancelRemoveProduct}
@@ -2047,7 +1980,6 @@ const Agents = ({user}) => {
         </DialogActions>
       </Dialog>
 
-      {/* ====== DELETE KNOWLEDGE ROWS (Knowledge Source) ====== */}
       <Dialog
         open={deleteDialogOpenK}
         onClose={handleCancelDeleteK}
@@ -2069,7 +2001,6 @@ const Agents = ({user}) => {
         </DialogActions>
       </Dialog>
 
-      {/* ====== SUMMARY DIALOG for Knowledge row ====== */}
       <Dialog
         open={isSummaryDialogOpen}
         onClose={() => {

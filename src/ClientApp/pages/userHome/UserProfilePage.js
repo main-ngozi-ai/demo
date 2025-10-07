@@ -28,7 +28,6 @@ const UserProfilePage = () => {
   return (
     <Box sx={{ backgroundColor: '#161d27', minHeight: '100vh', color: '#ccc', py: 2 }}>
       <Box sx={{ px: { xs: 2, md: 4 } }}>
-        {/* Page Header */}
         <Grid container spacing={2} sx={{ mb: 3 }}>
           <Grid item xs={12} sm={4} sx={{ textAlign: { xs: 'center', sm: 'left' } }}>
             <Typography variant="subtitle2" sx={{ textTransform: 'uppercase', color: '#ccc' }}>
@@ -37,7 +36,6 @@ const UserProfilePage = () => {
           </Grid>
         </Grid>
 
-        {/* Profile Card */}
         <Grid container spacing={3}>
           <Grid item xs={12} md={4}>
             <Card sx={{ backgroundColor: '#161d27', border: '1px solid #444' }}>
