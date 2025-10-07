@@ -68,7 +68,6 @@ import {
 import 'chartjs-adapter-date-fns';
 import { Line } from 'react-chartjs-2';
 
-// ---- Import the GIF player library only once
 import ReactGifPlayer from 'react-gif-player';
 
 import {
@@ -90,7 +89,6 @@ ChartJS.register(
   Legend
 );
 
-// Layout styles
 const containerSx = {
   display: 'flex',
   flexDirection: 'column',
@@ -129,7 +127,6 @@ const selectSx = {
 
 const toggleLabelSx = { mr: 3, color: '#ccc' };
 
-// Helper to format processed time (e.g. "0725" → "7 min 25 sec")
 const formatProcessedTime = (timeStr) => {
   if (timeStr.length === 4) {
     const minutes = parseInt(timeStr.slice(0, 2), 10);
@@ -212,28 +209,22 @@ const HomePage = () => {
   const [videoLinkHelperText, setVideoLinkHelperText] = useState('');
   const [videoDetails, setVideoDetails] = useState(null);
 
-  // Processed GIFs table state
   const [processedGifs, setProcessedGifs] = useState([]);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
 
-  // Tab state: 0 for Input, 1 for Results
   const [activeTab, setActiveTab] = useState(0);
 
-  // Show/hide frames
   const [showAgentChart, setShowAgentChart] = useState(false);
   const [showPlayground, setShowPlayground] = useState(true);
 
-  // Dialog state for viewing a GIF
   const [dialogOpen, setDialogOpen] = useState(false);
   const [dialogGifUrl, setDialogGifUrl] = useState('');
   const [dialogCopyClicked, setDialogCopyClicked] = useState(false);
 
-  // Menu state for row actions
   const [menuAnchorEl, setMenuAnchorEl] = useState(null);
   const [selectedRow, setSelectedRow] = useState(null);
 
-  // Polling ref for checkGifResult
   const pollingRef = useRef(null);
 
   useEffect(() => {
@@ -441,7 +432,6 @@ const HomePage = () => {
   };
 
   const handleMakeGif = async () => {
-    // Since only link mode is supported, validate YouTube link
     if (!videoLink.trim() || videoLinkError || !userId) {
       alert('Please provide a valid YouTube link first!');
       return;
@@ -451,7 +441,6 @@ const HomePage = () => {
     setIsSubmitting(true);
     try {
       makeFreeYoutubeVideoGif(videoLink, timeForServer, userId);
-      // Immediately clear input fields then wait for 5 seconds before switching to Results tab and starting polling
       setVideoLink('');
       setVideoDetails(null);
       setGifTime('');
@@ -482,7 +471,6 @@ const HomePage = () => {
     setActivePlaygroundMenu('');
   };
 
-  // Row actions menu handlers
   const handleMenuOpen = (event, row) => {
     setMenuAnchorEl(event.currentTarget);
     setSelectedRow(row);
@@ -506,7 +494,6 @@ const HomePage = () => {
     handleMenuClose();
   };
 
-  // Functions used in Input display
   const handleCopyUrl = () => {
     if (gifUrl) {
       navigator.clipboard.writeText(gifUrl);
@@ -525,7 +512,6 @@ const HomePage = () => {
     }
   };
 
-  // Dialog actions
   const handleDialogCopy = () => {
     if (dialogGifUrl) {
       navigator.clipboard.writeText(dialogGifUrl);

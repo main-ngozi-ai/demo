@@ -3,26 +3,19 @@ import { Link, useNavigate } from 'react-router-dom';
 import SiteLogo from './Img/site-logo.png';
 
 const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
-  // React Router navigate hook
   const navigate = useNavigate();
 
-  // Track which link is active
   const [activeLink, setActiveLink] = useState('/');
 
-  // Track if the "Agents" sub-menu is expanded
   const [agentsExpanded, setAgentsExpanded] = useState(false);
 
   useEffect(() => {
     const storedActiveLink = localStorage.getItem('activeLink');
     if (storedActiveLink) {
-      // 1) Set the activeLink state
       setActiveLink(storedActiveLink);
-      // 2) Programmatically navigate to that route on load
-     // navigate(storedActiveLink);
     }
   }, [navigate]);
 
-  // Expand "Agents" submenu automatically if the user’s stored link is one of the sub-links
   useEffect(() => {
     if (
       activeLink === '/social-accounts' ||
@@ -70,7 +63,6 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
       <div className="nav-wrapper">
         <ul className="nav flex-column">
 
-          {/* DASHBOARD */}
           <li className="nav-item">
             <Link
               className={`nav-link ${
@@ -84,7 +76,6 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
             </Link>
           </li>
 
-          {/* AGENTS (PARENT) */}
           <li className="nav-item">
             <div
               className={`nav-link ${
@@ -102,10 +93,8 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
               <span>Agents</span>
             </div>
 
-            {/* Sub-menu */}
             {agentsExpanded && (
               <ul className="nav flex-column" style={{ marginLeft: '20px' }}>
-                {/* ACCOUNTS */}
                 <li className="nav-item">
                   <Link
                     className={`nav-link ${
@@ -118,7 +107,6 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                     <span>Add</span>
                   </Link>
                 </li>
-                {/* KNOWLEDGE SOURCE */}
                 <li className="nav-item">
                   <Link
                     className={`nav-link ${activeLink === '/addTranscribe' ? 'active' : ''}`}
@@ -129,7 +117,6 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                     <span>Knowledge</span>
                   </Link>
                 </li>
-                {/* CONTROL PANEL */}
                 <li className="nav-item">
                   <Link
                     className={`nav-link ${activeLink === '/controlPanel' ? 'active' : ''}`}
@@ -152,7 +139,6 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
                   </Link>
                 </li>
 
-                {/* PRODUCT */}
                 <li className="nav-item">
                   <Link
                     className={`nav-link ${activeLink === '/errandbots' ? 'active' : ''}`}
@@ -167,7 +153,6 @@ const Sidebar = ({ sidebarOpen, toggleSidebar }) => {
             )}
           </li>
 
-          {/* EDIT PROFILE */}
           <li className="nav-item">
             <Link
               className={`nav-link ${activeLink === '/user-profile' ? 'active' : ''}`}

@@ -139,7 +139,7 @@ const AddTranscribeSource = ({user}) => {
       transcribeMode: null,
       quickInput: '',
       selectedChannels: [],
-      agentId: ''  // For "Add Channels jobs" mode
+      agentId: ''
     }]
   }]);
   const [filterChannel, setFilterChannel] = useState('All');
@@ -212,7 +212,6 @@ const AddTranscribeSource = ({user}) => {
           if (!account.selectedChannels || account.selectedChannels.length === 0) {
             return "For YouTube jobs mode, select at least one channel.";
           }
-          // Validate that an agent is selected when in "Add Channels jobs" mode
           if (!account.agentId || account.agentId === "") {
             return "For YouTube jobs mode, please select an agent.";
           }
@@ -296,7 +295,6 @@ const AddTranscribeSource = ({user}) => {
       for (let sec of sections) {
         for (let a of sec.socialAccounts) {
           if (a.platform === 'youtube' && a.transcribeMode === 'jobs') {
-            // Send selectedChannels along with the selected agentId
             await saveYoutubeData({ channels: a.selectedChannels, agentId: a.agentId });
           }
         }
@@ -359,13 +357,10 @@ const AddTranscribeSource = ({user}) => {
     closeDeleteDialog();
   };
 
-  // External Source functions and state
   const getAllExternalSources = async () => {
     try {
       setExternalLoading(true);
       const resp = await getAgentChannels(userId);
-      // Assume the response returns an array of channel records with keys:
-      // channelId, description, channelTitle, subscriberCount, model_name
       const channels = resp.records || [];
       setExternalData(channels);
     } catch (e) {
@@ -379,7 +374,6 @@ const AddTranscribeSource = ({user}) => {
     getAllExternalSources();
   };
 
-  // Stub delete function for agent channels.
   const deleteAgentChannel = async (id, channelId) => {
     try {
       await deleteChannelById(id, channelId);
@@ -584,7 +578,6 @@ const AddTranscribeSource = ({user}) => {
   const startIndex = (currentPage - 1) * PAGE_SIZE;
   const currentTableData = sortedData.slice(startIndex, startIndex + PAGE_SIZE);
 
-  // For external data pagination
   const totalExternalPages = Math.ceil(externalData.length / EXTERNAL_PAGE_SIZE);
   const externalStartIndex = (externalPage - 1) * EXTERNAL_PAGE_SIZE;
   const currentExternalData = externalData.slice(externalStartIndex, externalStartIndex + EXTERNAL_PAGE_SIZE);
@@ -769,7 +762,6 @@ const AddTranscribeSource = ({user}) => {
       for (let sec of sections) {
         for (let a of sec.socialAccounts) {
           if (a.platform === 'youtube' && a.transcribeMode === 'jobs') {
-            // Send selectedChannels along with the selected agentId for each account in jobs mode.
             await saveYoutubeData(a.selectedChannels, a.agentId);
           }
         }
@@ -1093,7 +1085,6 @@ const AddTranscribeSource = ({user}) => {
                               >
                                 <LanguageIcon />
                               </Button>
-                              {/* Display the agent select menu only when in "Add Channels jobs" mode */}
                               {account.platform === 'youtube' && account.transcribeMode === 'jobs' && (
                                 <FormControl variant="outlined"
                                  size="small" 

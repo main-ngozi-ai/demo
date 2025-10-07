@@ -1,5 +1,4 @@
 import { initializeApp } from "firebase/app";
-// 2) Analytics (optional)
 import { getAnalytics } from "firebase/analytics";
 import { loadClientConfig } from '../../utils/loadClientConfig'
 

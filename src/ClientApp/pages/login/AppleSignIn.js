@@ -17,7 +17,6 @@ const buttonSx = {
   };
 
 export default function AppleSignIn() {
-  // (Optional) set locale or custom parameters
   appleProvider.setCustomParameters({ locale: 'en' });
 
   const handleApple = async () => {

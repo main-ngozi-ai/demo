@@ -1,4 +1,3 @@
-// SocialAccounts.js
 import React, { useState, useEffect } from 'react';
 import {
   Box,
@@ -42,9 +41,6 @@ import {
   getLanguageModels
 } from '../../../../core/api/auth';
 
-/* -------------------------------------------------------------------------- */
-/*                                CONSTANTS                                   */
-/* -------------------------------------------------------------------------- */
 
 const socialBaseUrls = {
   twitter:   'https://twitter.com/',
@@ -87,9 +83,6 @@ const textFieldSx = {
   '& .MuiInputBase-input': { color: '#ccc' }
 };
 
-/* -------------------------------------------------------------------------- */
-/*                               HELPERS                                      */
-/* -------------------------------------------------------------------------- */
 
 const getSelectedAgentDetails = async (id) => {
   try {
@@ -125,12 +118,8 @@ const checkIfPostConfigExistsAndSave = async (
   }
 };
 
-/* -------------------------------------------------------------------------- */
-/*                             MAIN COMPONENT                                 */
-/* -------------------------------------------------------------------------- */
 
 const SocialAccounts = ({ user }) => {
-  /* ------------------------------ state ----------------------------------- */
   const userId = user?.id || localStorage.getItem('userId');
 
   const [selectedAgentId, setSelectedAgentId]    = useState(null);
@@ -166,7 +155,6 @@ const SocialAccounts = ({ user }) => {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
-  /* dialogs & extras */
   const [selectedAvatar, setSelectedAvatar] = useState('');
   const [dialogOpen, setDialogOpen] = useState(false);
   const [linkPlatform, setLinkPlatform] = useState('');
@@ -181,7 +169,6 @@ const SocialAccounts = ({ user }) => {
   const [customDescriptions, setCustomDescriptions] = useState([]);
   const [customBehaviorals, setCustomBehaviorals] = useState([]);
 
-  /* ------------------------------ effects --------------------------------- */
 
   useEffect(() => {
     const fetchInitialLists = async () => {
@@ -216,10 +203,8 @@ const SocialAccounts = ({ user }) => {
     };
 
     fetchInitialLists();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  /* ---------------------------- handlers ---------------------------------- */
 
   const resetForm = () => {
     setSelectedAgentId(null);
@@ -300,7 +285,6 @@ const SocialAccounts = ({ user }) => {
     if (source.current.includes(item)) moveItem(item, source.setter, target.setter);
   };
 
-  /* ------------------------------ save ------------------------------------ */
 
   const handleSave = async () => {
     setErrorMsg('');
@@ -362,13 +346,9 @@ const SocialAccounts = ({ user }) => {
     resetForm();
   };
 
-  /* ------------------------------------------------------------------------ */
-  /*                                 RENDER                                   */
-  /* ------------------------------------------------------------------------ */
 
   return (
     <Box sx={mainContainerSx}>
-      {/* PAGE HEADING ------------------------------------------------------- */}
       <Grid container spacing={2} sx={{ mb: 3 }}>
         <Grid item xs={12} sm={4}>
           <Typography variant="subtitle2" sx={{ textTransform: 'uppercase', color: '#ccc' }}>
@@ -377,7 +357,6 @@ const SocialAccounts = ({ user }) => {
         </Grid>
       </Grid>
 
-      {/* LINK‑ACCOUNT DIALOG ------------------------------------------------ */}
       <Dialog
         open={dialogOpen}
         onClose={handleDialogClose}
@@ -423,7 +402,6 @@ const SocialAccounts = ({ user }) => {
         </DialogActions>
       </Dialog>
 
-      {/* EDIT DESCRIPTIONS / BEHAVIORALS DIALOG ---------------------------- */}
       <Dialog
         open={editDialogOpen}
         onClose={() => setEditDialogOpen(false)}
@@ -433,7 +411,6 @@ const SocialAccounts = ({ user }) => {
       >
         <DialogTitle sx={{ color: '#ccc' }}>Edit Additional Attributes</DialogTitle>
         <DialogContent sx={{ pb: 0 }}>
-          {/* ------------- Descriptions transfer list ------------------------ */}
           <Typography variant="h6" sx={{ mt: 2, mb: 1, color: '#ccc' }}>
             Edit Reasoning
           </Typography>
@@ -494,7 +471,6 @@ const SocialAccounts = ({ user }) => {
             </Grid>
           </Grid>
 
-          {/* ------------- Behaviorals transfer list ------------------------ */}
           <Typography variant="h6" sx={{ mt: 4, mb: 1, color: '#ccc' }}>
             Edit Behavioral
           </Typography>
@@ -580,7 +556,6 @@ const SocialAccounts = ({ user }) => {
         </DialogActions>
       </Dialog>
 
-      {/* SOCIAL LINKS CARD --------------------------------------------------- */}
       <Box sx={cardSx}>
         <CardContent>
           <Typography variant="h6" sx={{ mb: 2, color: '#ccc' }}>
@@ -634,7 +609,6 @@ const SocialAccounts = ({ user }) => {
         </CardContent>
       </Box>
 
-      {/* CHARACTER SELECTION CARD ------------------------------------------- */}
       <Box sx={cardSx}>
         <CardContent>
           <Typography variant="h6" sx={{ mb: 2, color: '#ccc' }}>
@@ -642,13 +616,11 @@ const SocialAccounts = ({ user }) => {
           </Typography>
 
           <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, gap: 2 }}>
-            {/* left column */}
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <Box sx={{ display: 'flex', justifyContent: 'center' }}>
                 <Avatar src={selectedAvatar} alt="Character Avatar" sx={{ width: 80, height: 80 }} />
               </Box>
 
-              {/* Character selector */}
               <FormControl sx={formControlSx}>
                 <InputLabel sx={{ color: '#ccc' }}>Character</InputLabel>
                 <Select
@@ -666,7 +638,6 @@ const SocialAccounts = ({ user }) => {
                 </Select>
               </FormControl>
 
-              {/* Language‑model selector */}
               <FormControl sx={formControlSx} error={langModelError}>
                 <InputLabel sx={{ color: '#ccc' }}>Language Model</InputLabel>
                 <Select
@@ -691,7 +662,6 @@ const SocialAccounts = ({ user }) => {
               </FormControl>
             </Box>
 
-            {/* right column */}
             <Box
               sx={{
                 flex: 1,
@@ -781,7 +751,6 @@ const SocialAccounts = ({ user }) => {
         </CardContent>
       </Box>
 
-      {/* CONFIGURE POST SETTINGS -------------------------------------------- */}
       <Box sx={cardSx}>
         <CardContent>
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', mb: 2 }}>
@@ -824,7 +793,6 @@ const SocialAccounts = ({ user }) => {
           )}
 
           <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
-            {/* Source selector */}
             <FormControl sx={formControlSx}>
               <InputLabel sx={{ color: '#ccc' }}>Source</InputLabel>
               <Select
@@ -841,7 +809,6 @@ const SocialAccounts = ({ user }) => {
               </Select>
             </FormControl>
 
-            {/* Secondary selector */}
             <FormControl sx={formControlSx} disabled={addLater || loadingSource || !selectedSource}>
               <InputLabel sx={{ color: '#ccc' }}>Secondary Source</InputLabel>
               <Select
@@ -859,7 +826,6 @@ const SocialAccounts = ({ user }) => {
               </Select>
             </FormControl>
 
-            {/* Active period selector */}
             <FormControl sx={formControlSx}>
               <InputLabel sx={{ color: '#ccc' }}>Active Period</InputLabel>
               <Select
@@ -885,7 +851,6 @@ const SocialAccounts = ({ user }) => {
             </Box>
           )}
 
-          {/* Save / cancel buttons */}
           <Box sx={{ mt: 3, display: 'flex', justifyContent: 'flex-end', gap: 2 }}>
             <Button
               variant="outlined"

@@ -135,7 +135,6 @@ export default function Transcribed() {
               <CircularProgress size={20} sx={{ color: '#fff', ml: 2 }} />
             ) : (
               transcribedData.video_id ? (
-                // Existing details when video_id exists
                 videoDetailsData && videoDetailsData.length > 0 && allowedKeys.map((k) => (
                   <Grid item xs={4} sm={2} key={k}>
                     <Box sx={{ textAlign: 'center', backgroundColor: '#1f2833', p: 1, borderRadius: 1 }}>
@@ -149,7 +148,6 @@ export default function Transcribed() {
                   </Grid>
                 ))
               ) : (
-                // New details when video_id is empty
                 <>
                   <Grid item xs={4} sm={2}>
                     <Box sx={{ textAlign: 'center', backgroundColor: '#1f2833', p: 1, borderRadius: 1 }}>

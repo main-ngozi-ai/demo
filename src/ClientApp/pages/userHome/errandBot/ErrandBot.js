@@ -22,12 +22,10 @@ import {
   deleteUserProduct
 } from '../../../../core/api/auth';
 
-// A simple validator to prevent use of < or >
 const isValidInput = (input) => {
   return !/[<>]/.test(input);
 };
 
-// Formats a number as U.S. currency (without the $ symbol)
 const formatCurrency = (value) => {
   const numeric = parseFloat(value);
   if (isNaN(numeric)) return '';
@@ -66,7 +64,6 @@ const ErrandBot = ({user}) => {
   const [errorMsg, setErrorMsg] = useState('');
   const [successMsg, setSuccessMsg] = useState('');
 
-  // ========== Styling ==========
   const mainContainerSx = { p: 2, backgroundColor: '#161d27', color: '#ccc', minHeight: '100vh' };
   const cardSx = { backgroundColor: '#161d27', border: '1px solid #444', color: '#ccc', mb: 2, p: 2 };
   const formControlSx = { 
@@ -93,7 +90,6 @@ const ErrandBot = ({user}) => {
     input: { color: '#ccc' },
   };
 
-  // ========== On mount, load agent & shop data ==========
   useEffect(() => {
     const fetchSavedAgents = async () => {
       try {
@@ -229,7 +225,6 @@ const ErrandBot = ({user}) => {
       setSuccessMsg('');
       return;
     }
-    // Validate each product
     for (let product of products) {
       if (!product.name || !product.description || !product.price || !product.link) {
         setErrorMsg("All product fields are required.");

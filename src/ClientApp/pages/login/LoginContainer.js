@@ -90,7 +90,6 @@ const LeftFrame = styled(Box)(({ theme }) => ({
   justifyContent: 'center',
   alignItems: 'start',
 
-  /* hover behaviour */
   '&:hover': {
     overflowY: 'auto'
   },
@@ -116,7 +115,6 @@ const FramesTrack = styled(Box)({
   animation: `${scrollUp} 15s linear infinite`
 });
 
-/* height is now auto -> adapts to card */
 const PromoFrame = styled(Box)({
   width: '100%',
   padding: 8,
@@ -196,7 +194,6 @@ export default function LoginPage() {
       try {
         const res = await getRandomAgentActivities();
 
-        /* ---------- build cards ---------- */
         const gifFrames = res.freeGif.map((g) => ({
           kind: 'gif',
           card: (
